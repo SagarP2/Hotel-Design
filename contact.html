@@ -1,98 +1,164 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <title> Magestic Hotel</title>
-    
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Magestic Hotel</title>
+
     <script type="text/javascript" src="dist/pickmeup.min.js"></script>
     <script type="text/javascript" src="dist/handleCounter.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/pickmeup.css">
-    <link rel="stylesheet" type="text/css" href="css/handle-counter.min.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/pickmeup.css" />
+    <link rel="stylesheet" type="text/css" href="css/handle-counter.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+      rel="stylesheet"
+    />
     <script type="text/javascript" src="dist/jquery.scrollUp.js"></script>
-     <script type="text/javascript" src="dist/demo.js"></script>
+    <script type="text/javascript" src="dist/demo.js"></script>
+  </head>
 
-    
-
- 
-    
-    </head>
-    
-<body>
+  <body>
     <header class="tm-header">
-        <img class="tm-logo" src="images/Majestic_Hotel_hd.png" alt="Majestic Hotel">
-        <nav class="tm-nav">
-       <div>
-            <ul>
-                <li class="tm-list"><a href="index.html">Home</a></li>
-                <li class="tm-list"><a href="explore.html">Explore</a></li>
-                <li class="tm-list"><a href="rooms.html">Rooms</a></li>
-                <li class="tm-list"><a href="bb.html">Booking</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>    
-            </div>
-        </nav>
+      <img
+        class="tm-logo"
+        src="images/Majestic_Hotel_hd.png"
+        alt="Majestic Hotel"
+      />
+      <nav class="tm-nav">
+        <div>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="explore.html">Explore </a></li>
+            <li><a href="rooms.html">Rooms</a></li>
+            <li><a href="bb.html">Booking</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
     </header>
-    
-    
+
     <section class="tm-main">
-           <p>Contact</p>
+      <p>Contact</p>
     </section>
-    
-    
-    
+
+    <!-- Success Popup -->
+    <div
+      id="popup-message"
+      style="
+        display: none;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #4bb543;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 6px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        font-weight: bold;
+        z-index: 9999;
+      "
+    >
+      ✅ Message Sent Successfully!
+    </div>
+
     <section class="tm-booking">
-    
-    <form>
+      <form
+        id="contactForm"
+        action="https://api.web3forms.com/submit"
+        method="POST"
+      >
+        <!-- Replace with your real Access Key -->
+        <input
+          type="hidden"
+          name="access_key"
+          value="81585f28-8058-47d5-a317-976e787c77da"
+        />
+
         <div class="tm-form1">
-    <input type="text" name="name" placeholder="Name">  
-    <input type="email" name="email" placeholder="E-mail"> 
-            <textarea  placeholder="Your message..." rows="4" ></textarea>
-   
-            <input type="submit" id="sub2" value="Send">
+          <input type="text" name="name" placeholder="Name" required />
+          <input type="email" name="email" placeholder="E-mail" required />
+          <textarea
+            name="message"
+            placeholder="Your message..."
+            rows="4"
+            required
+          ></textarea>
 
-    </div>
-        </form> 
-        
-        <div class="vertical-line"> </div>
-        
-    <div class="tm-form2">
-   <div class="tm-cl">
-        <p class="here">We are situated over here</p><img id="place" src="images/placeholder.png">
+          <input type="submit" id="sub2" value="Send" />
+        </div>
+      </form>
 
-        <div id="map"></div>
+      <div class="vertical-line"></div>
 
-     
-    </div>
-    </div>
-        
-  </section>
-    
-    
+      <div class="tm-form2">
+        <div class="tm-cl">
+          <p class="here">We are situated over here</p>
+          <img id="place" src="images/placeholder.png" />
+          <div id="map"></div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const form = document.getElementById("contactForm");
+      const popup = document.getElementById("popup-message");
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: formData,
+        });
+
+        if (response.ok) {
+          form.reset();
+          popup.style.display = "block";
+          setTimeout(() => {
+            popup.style.display = "none";
+          }, 2000);
+        } else {
+          popup.style.display = "block";
+          popup.textContent = "❌ Submission Failed!";
+          popup.style.backgroundColor = "#D8000C";
+          setTimeout(() => {
+            popup.style.display = "none";
+          }, 2000);
+        }
+      });
+    </script>
+
     <footer class="tm-footer">
-        <div class="tm-us">
+      <div class="tm-us">
         <p class="bold">About Us</p>
-        <p>We are a part of chain of luxury hotels 
-            which extends all over the world. We 
-            provide a luxorious stay with various value
-            added and free services which will make
-            you visit us over and over again.</p>    
-        </div>
-       
-        <div class="tm-address">
-        <p class="bold">Address</p>
-        <p>415, Park Avenu, Hawai
-            Phone : (211) 9275693451
-            Email : majestic@info.com</p>    
-        </div>
-        <br/>
-   
-    </footer>
-    
+        <p>
+          We are a part of chain of luxury hotels which extends all over the
+          world. We provide a luxorious stay with various value added and free
+          services which will make you visit us over and over again.
+        </p>
+      </div>
 
-    
-    </body>
-    
+      <div class="tm-address">
+        <p class="bold">Address</p>
+        <p>
+          415, Park Avenu, Hawai Phone : (211) 9275693451 Email :
+          majestic@info.com
+        </p>
+      </div>
+      <br />
+      <div class="powered-by" style="color: white; text-align: center;">
+     <span>© 2024 <a href="https://techvedaportfolio.vercel.app/">TECHVEDA.</a>&nbsp; All rights reserved.</span>
+    Design and Development by&nbsp;
+    <a style="color: white;" href="https://sagarp2.github.io/SagarPanchal/">
+        Sagar Panchal
+    </a>
+    &nbsp; &amp; &nbsp;
+    <a style="color: white;" href="https://www.priyanshupatel.online/">
+      Priyanshu Patel
+    </a>
+  </div>
+    </footer>
+  </body>
 </html>
-    
